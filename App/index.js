@@ -9,9 +9,15 @@ import {
     ScreenHeaderBtn,
     Welcome,
 } from "../components";
+import useFetch from "../hook/useFetch";
 
 const Home = () => {
     const router = useRouter();
+    const [search, setSearch] = useState("");
+    const { isLoading, error, response } = useFetch("search", {
+        query: "React developer",
+        num_pages: 1,
+    });
 
     return (
         <SafeAreaView
@@ -45,9 +51,25 @@ const Home = () => {
                         padding: SIZES.medium,
                     }}
                 >
-                    <Welcome />
-                    <Popularjobs />
-                    <Nearbyjobs />
+                    <Welcome
+                        search={search}
+                        setSearch={setSearch}
+                        handleClick={() => {
+                            if (search) {
+                                router.push(`/search/${search}`);
+                            }
+                        }}
+                    />
+                    <Popularjobs
+                        isLoading={isLoading}
+                        error={error}
+                        response={response}
+                    />
+                    <Nearbyjobs
+                        isLoading={isLoading}
+                        error={error}
+                        response={response}
+                    />
                 </View>
             </ScrollView>
         </SafeAreaView>

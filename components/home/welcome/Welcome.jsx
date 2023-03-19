@@ -14,7 +14,7 @@ import { icons, SIZES } from "../../../constants";
 
 const jobTypes = ["Full Time", "Part Time", "Contract", "Freelance"];
 
-const Welcome = () => {
+const Welcome = ({ search, setSearch, handleClick }) => {
     const router = useRouter();
     const [activeJobType, setActiveJobType] = useState("Full Time");
 
@@ -30,13 +30,17 @@ const Welcome = () => {
                 <View style={styles.searchWrapper}>
                     <TextInput
                         style={styles.searchInput}
-                        value=""
-                        onChange={() => {}}
+                        value={search}
+                        onChangeText={(text) => setSearch(text)}
                         placeholder="What are you looking for?"
                     />
                 </View>
-                <TouchableOpacity style={styles.searchBtn} onPress={() => {}}>
+                <TouchableOpacity
+                    style={styles.searchBtn}
+                    onPress={handleClick}
+                >
                     <Image
+                        on
                         style={styles.searchBtnImage}
                         source={icons.search}
                         resizeMode="contain"

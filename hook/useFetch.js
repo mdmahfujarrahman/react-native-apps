@@ -33,19 +33,26 @@ const useFetch = (url, query) => {
     };
 
     useEffect(() => {
+        if (response.length > 0) {
+            return;
+        } else {
+            setTimeout(() => {
+                fetchData();
+            }, 2000);
+        }
+    }, []);
+
+    const refetch = () => {
+        setIsLoading(true);
         setTimeout(() => {
             fetchData();
         }, 1000);
-    }, []);
+    };
 
-    // const refetch = () => {
-    //     setIsLoading(true);
-    //     setTimeout(() => {
-    //         fetchData();
-    //     }, 1000);
-    // };
+    console?.log(response);
+    console?.log(error);
 
-    return { response, isLoading, error };
+    return { response, isLoading, error, refetch };
 };
 
 export default useFetch;
